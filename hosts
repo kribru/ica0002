@@ -1,1 +1,4 @@
-ubuntu ansible_host=193.40.156.86 ansible_port=9122 ansible_ssh_user=ubuntu
+kribru-1 ansible_host=193.40.156.86 ansible_port=2422 ansible_ssh_user=ubuntu
+
+[web_servers]
+kribru-1

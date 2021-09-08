@@ -1,0 +1,10 @@
+- name: Install nginx and update cache
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+- name: Copy index.html with ansible to web server
+  ansible.builtin.copy:
+    src: roles/nginx/files/index.html
+    dest: /var/www/html
+   
