@@ -1,0 +1,22 @@
+- name: install uWSGI packages
+  apt: 
+    name: uwsgi
+    state: latest
+    update_cache: yes
+- name: install uWSGI plugin
+  apt:
+    name: uwsgi-plugin-python3
+    state: latest
+    update_cache: yes
+- name: copy uWSGI configuration file
+  ansible.builtin.copy:
+    src: roles/uwsgi/files/agama.ini
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+  notify:
+  - restart uwsgi
+- name: start uWSGI service
+  ansible.builtin.service:
+    name: uwsgi
+    enabled: yes
+    state: started
+
