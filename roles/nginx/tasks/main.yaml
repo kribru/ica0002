@@ -2,7 +2,6 @@
   apt:
     name: nginx
     state: latest
-    update_cache: yes
 - name: Copy default with ansible to web server
   ansible.builtin.copy:
     src: roles/nginx/files/default

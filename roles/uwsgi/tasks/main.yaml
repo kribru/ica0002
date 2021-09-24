@@ -2,16 +2,23 @@
   apt: 
     name: uwsgi
     state: latest
-    update_cache: yes
 - name: install uWSGI plugin
   apt:
     name: uwsgi-plugin-python3
     state: latest
-    update_cache: yes
-- name: copy uWSGI configuration file
-  ansible.builtin.copy:
-    src: roles/uwsgi/files/agama.ini
+#- name: copy uWSGI configuration file
+ # ansible.builtin.copy:
+  #  src: roles/uwsgi/files/agama.ini
+   # dest: /etc/uwsgi/apps-enabled/agama.ini
+ # notify:
+  #- restart uwsgi
+- name: Template a file to /etc/uwsgi/apps-enabled/agama.ini
+  ansible.builtin.template:
+    src: roles/uwsgi/templates/agama.ini
     dest: /etc/uwsgi/apps-enabled/agama.ini
+    owner: agama
+    group: agama
+    mode: '755'
   notify:
   - restart uwsgi
 - name: start uWSGI service

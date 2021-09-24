@@ -12,8 +12,6 @@
   ansible.posix.authorized_key:
    user: roman
    key: https://github.com/romankuchin.keys
-- name: add user agama
-  ansible.builtin.user:
-   name: agama
+
 
 

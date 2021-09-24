@@ -1,3 +1,6 @@
+- name: add user agama
+  ansible.builtin.user:
+   name: agama
 - name: create a directory
   ansible.builtin.file:
     path: /opt/agama 
@@ -7,9 +10,10 @@
     state: directory
 - name: install dependencies
   apt:
-    name: python3-flask-sqlalchemy
+    name:
+      - python3-flask-sqlalchemy
+      - python3-pymysql
     state: latest
-    update_cache: yes
 - name: install agama
   get_url:
     url: https://raw.githubusercontent.com/hudolejev/agama/master/agama.py
