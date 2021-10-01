@@ -26,4 +26,12 @@
     name: uwsgi
     enabled: yes
     state: started
+- name: stop systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+- template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
 
