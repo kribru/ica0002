@@ -1,0 +1,18 @@
+ acl lan {
+        {% for ip in lan_ip %}
+		    {{ ip }}
+	    {% endfor %}
+    };
+ options {
+	directory "/var/cache/bind";
+	forwarders{
+	{% for ip in forwarders %}
+		 {{ ip }}
+	{% endfor %}
+	 };
+	 allow-query {
+	 lan;
+	 };
+	dnssec-validation no;
+
+};

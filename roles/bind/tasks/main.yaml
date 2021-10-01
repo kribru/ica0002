@@ -1,0 +1,31 @@
+---
+- name: bind package install
+  apt:
+    name: bind9
+    state: latest
+- name: Start service bind9
+  ansible.builtin.service:
+    name: bind9
+    state: started
+    enabled: yes
+- template:
+    src: named.conf.options.j2
+    dest: /etc/bind/named.conf.options
+  notify:
+    restart bind
+- template:
+    src: db.kify
+    dest: /var/cache/bind/db.kify
+- template:
+    src: named.conf.local.j2
+    dest: /etc/bind/named.conf.local
+  notify:
+    restart bind
+- name: stop systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
+- template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
