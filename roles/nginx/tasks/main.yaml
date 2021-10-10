@@ -2,9 +2,9 @@
   apt:
     name: nginx
     state: latest
-- name: Copy default with ansible to web server
-  ansible.builtin.copy:
-    src: roles/nginx/files/default
+- name: Copy default.j2 with ansible to web server
+  template:
+    src: roles/nginx/templates/default.j2
     dest: /etc/nginx/sites-enabled/default
   notify:
   - restart nginx

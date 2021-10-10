@@ -16,3 +16,6 @@ lan_ip:
   - 192.168.42.0/24;
   - 127.0.0.0/8;
 domain_name: kify.ki
+vms:
+  - kribru-1
+  - kribru-2

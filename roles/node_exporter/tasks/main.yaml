@@ -1,0 +1,5 @@
+---
+- name: prometheus-node-exporter package install
+  apt:
+    name: prometheus-node-exporter
+    state: latest
