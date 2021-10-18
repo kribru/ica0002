@@ -1,0 +1,10 @@
+---
+- name: mysqld_exporter package install
+  apt:
+    name: prometheus-mysqld-exporter
+    state: latest
+- template:
+    src: my.cnf.j2
+    dest: /var/lib/prometheus/.my.cnf
+  notify:
+    - restart prometheus-mysqld-exporter

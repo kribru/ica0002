@@ -8,6 +8,12 @@
     dest: /etc/nginx/sites-enabled/default
   notify:
   - restart nginx
+- name: Copy exporter.j2
+  template:
+    src: roles/nginx/templates/exporter.j2
+    dest: /etc/nginx/sites-enabled/exporter
+  notify:
+  - restart nginx
 - name: Start service nginx
   ansible.builtin.service:
     name: nginx

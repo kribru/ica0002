@@ -1,0 +1,7 @@
+---
+- name: nginx_exporter package install
+  apt:
+    name: prometheus-nginx-exporter
+    state: latest
+  notify:
+    - restart prometheus-nginx-exporter

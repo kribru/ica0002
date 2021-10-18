@@ -1,5 +1,5 @@
-kribru-1 ansible_host=193.40.156.86 ansible_port=8222 ansible_ssh_user=ubuntu
-kribru-2 ansible_host=193.40.156.86 ansible_port=12222 ansible_ssh_user=ubuntu
+kribru-1 ansible_host=193.40.156.86 ansible_port=9522 ansible_ssh_user=ubuntu
+kribru-2 ansible_host=193.40.156.86 ansible_port=5022 ansible_ssh_user=ubuntu
 
 [dns_servers]
 kribru-2
@@ -12,3 +12,6 @@ kribru-1
 
 [prometheus]
 kribru-1
+
+[grafana]
+kribru-2

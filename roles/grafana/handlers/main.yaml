@@ -1,0 +1,13 @@
+- name: update grafana
+  ansible.builtin.apt:
+    cache_valid_time: 86400
+
+- name: restart grafana
+  service:
+    name: grafana-server
+    state: restarted
+
+- name: reset password
+  ansible.builtin.shell: grafana-cli admin reset-admin-password {{grafana_pass}}
+  args:
+    chdir: /usr/share/grafana

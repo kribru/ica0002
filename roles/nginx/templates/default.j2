@@ -18,4 +18,26 @@ server {
                    proxy_pass http://localhost:9090;
         }
         {% endif %}
+
+        {% if inventory_hostname in groups['grafana'] %}
+                location /grafana {
+                   proxy_pass http://localhost:3000;
+        }
+        {% endif %}
+
+                location /nginx-metrics {
+                   proxy_pass http://localhost:9113/metrics;
+                }
+
+        {% if inventory_hostname in groups['dns_servers'] %}
+                location /bind-metrics {
+                   proxy_pass http://localhost:9119/metrics;
+        }
+        {% endif %}
+
+        {% if inventory_hostname in groups['db_servers'] %}
+                location /mysql-metrics {
+                   proxy_pass http://localhost:9104/metrics;
+        }
+        {% endif %}
 }

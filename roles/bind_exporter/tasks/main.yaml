@@ -1,0 +1,5 @@
+---
+- name: bind_exporter package install
+  apt:
+    name: prometheus-bind-exporter
+    state: latest
