@@ -1,0 +1,28 @@
+- name: Add a influxdb signing key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: Add influx_db repository into sources list
+  apt_repository:
+    repo: deb https://repos.influxdata.com/ubuntu focal stable
+
+- name: Install influxdb and telegraf
+  apt:
+    name:
+      - influxdb
+      - telegraf
+
+- service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+- template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+  notify: restart telegraf
+
+- template:
+    src: influxdb.conf.j2
+    dest: /etc/influxdb/influxdb.conf
+  notify: restart influxdb

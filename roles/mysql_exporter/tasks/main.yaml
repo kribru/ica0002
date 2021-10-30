@@ -3,8 +3,21 @@
   apt:
     name: prometheus-mysqld-exporter
     state: latest
+  register: prom_exporter_installed
+
 - template:
     src: my.cnf.j2
     dest: /var/lib/prometheus/.my.cnf
   notify:
     - restart prometheus-mysqld-exporter
+  no_log: true
+
+- name: Pause for 10sec
+  pause:
+    seconds: 10
+  when: prom_exporter_installed.changed
+
+- service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: yes

@@ -27,15 +27,37 @@
 
 - template:
     src: datasources.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/
+    dest: /etc/grafana/provisioning/datasources/datasources.yaml
+  notify: restart grafana
+
+- template:
+    src: datasourcesINFLUX.yaml.j2
+    dest: /etc/grafana/provisioning/datasources/datasourcesINFLUX.yaml
+  notify: restart grafana
+
+- template:
+    src: datasourcesTELEGRAF.yaml.j2
+    dest: /etc/grafana/provisioning/datasources/datasourcesTELEGRAF.yaml
+  notify: restart grafana
 
 - name: Copy dashboards.yaml
   ansible.builtin.copy:
     src: dashboards.yaml
     dest: /etc/grafana/provisioning/dashboards/
 
+- name: Copy dashboardsTELEGRAF.yaml
+  ansible.builtin.copy:
+    src: dashboardsTELEGRAF.yaml
+    dest: /etc/grafana/provisioning/dashboards/
+
 - name: Copy main.json
   ansible.builtin.copy:
     src: main.json
+    dest: /var/lib/grafana/dashboards/
+  notify: restart grafana
+
+- name: Copy mainSyslog.json
+  ansible.builtin.copy:
+    src: mainSyslog.json
     dest: /var/lib/grafana/dashboards/
   notify: restart grafana

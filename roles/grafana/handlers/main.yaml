@@ -8,6 +8,7 @@
     state: restarted
 
 - name: reset password
-  ansible.builtin.shell: grafana-cli admin reset-admin-password {{grafana_pass}}
-  args:
-    chdir: /usr/share/grafana
+  shell: |
+    sleep 30
+    grafana-cli admin reset-admin-password {{grafana_pass}}
+  no_log: true

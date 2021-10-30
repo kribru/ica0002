@@ -50,3 +50,17 @@
     become: yes
     roles:
       - grafana
+
+  - name: Influxdb
+    hosts: influxdb
+    become: yes
+    roles:
+      - influxdb
+      - pinger
+      - influxdb_exporter
+
+  - name: Rsyslog
+    hosts: all
+    become: yes
+    roles:
+      - rsyslog

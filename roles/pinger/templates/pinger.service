@@ -1,0 +1,11 @@
+[Unit]
+Description=To ping websites
+Documentation=https://github.com/romankuchin/ica0002-2021/blob/main/08-logging/lab.md#task-2-create-pinger-service-on-one-of-vms
+After=network-online.target
+
+[Service]
+User=pinger
+ExecStart=/usr/local/bin/pinger
+
+[Install]
+WantedBy=multi-user.target

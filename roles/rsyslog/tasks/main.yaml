@@ -1,0 +1,4 @@
+- template:
+    src: 10-telegraf.conf.j2
+    dest: /etc/rsyslog.d/telegraf.conf
+  notify: restart rsyslog
