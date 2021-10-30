@@ -26,7 +26,7 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": "InfluxDB",
+      "datasource": "Influxdb",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -78,8 +78,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 7,
+        "w": 24,
         "x": 0,
         "y": 0
       },
@@ -147,6 +147,79 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0.5
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 7
+      },
+      "id": 19,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "influxdb_exporter_stats_query_success",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "InfluxDB",
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -198,9 +271,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 0
+        "y": 7
       },
-      "id": 13,
+      "id": 21,
       "options": {
         "legend": {
           "calcs": [],
@@ -214,13 +287,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(nginx_http_requests_total[1m])",
+          "expr": "influxdb_write_write_ok",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Amount of  http requests",
+      "title": "InfluxDB write rate",
       "type": "timeseries"
     },
     {
@@ -265,7 +338,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 15
       },
       "id": 14,
       "options": {
@@ -352,9 +425,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 15
       },
-      "id": 11,
+      "id": 13,
       "options": {
         "legend": {
           "calcs": [],
@@ -368,13 +441,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(mysql_global_status_commands_total[1m])\n",
+          "expr": "rate(nginx_http_requests_total[1m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Mysql amount of selects",
+      "title": "Amount of  http requests",
       "type": "timeseries"
     },
     {
@@ -419,7 +492,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 23
       },
       "id": 5,
       "options": {
@@ -506,9 +579,9 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 23
       },
-      "id": 9,
+      "id": 11,
       "options": {
         "legend": {
           "calcs": [],
@@ -522,13 +595,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(bind_resolver_query_retries_total[1m])",
+          "expr": "rate(mysql_global_status_commands_total[1m])\n",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "A DNS query amount",
+      "title": "Mysql amount of selects",
       "type": "timeseries"
     },
     {
@@ -573,7 +646,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 24
+        "y": 31
       },
       "id": 4,
       "options": {
@@ -603,6 +676,87 @@
       ],
       "title": "Bind9 ",
       "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 31
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(bind_resolver_query_retries_total[1m])",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "A DNS query amount",
+      "type": "timeseries"
     },
     {
       "datasource": null,
@@ -685,7 +839,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 39
       },
       "id": 7,
       "options": {
@@ -766,7 +920,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 47
       },
       "id": 2,
       "options": {
@@ -807,5 +961,5 @@
   "timezone": "",
   "title": "Main",
   "uid": "pm7_25dnz",
-  "version": 1
+  "version": 4
 }

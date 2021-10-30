@@ -44,5 +44,5 @@ scrape_configs:
     static_configs:
       - targets:
 {% for vm in groups['influxdb'] %}
-        - {{ vm }}:8086
+        - {{ vm }}:9424
 {% endfor %}
