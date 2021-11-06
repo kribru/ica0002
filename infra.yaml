@@ -4,6 +4,7 @@
     become: yes
     roles:
       - init
+      - backup
 
   - name: Node exporter
     hosts: all

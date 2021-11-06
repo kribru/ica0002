@@ -1,0 +1,13 @@
+- name: create a directory
+  ansible.builtin.file:
+    path: /home/backup
+    owner: backup
+    group: backup
+    mode: '0755'
+    state: directory
+
+- name: Create user backup
+  ansible.builtin.user:
+    name: backup
+    generate_ssh_key: yes
+    home: /home/backup
