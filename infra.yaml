@@ -31,6 +31,7 @@
     roles: 
       - mysql
       - mysql_exporter
+      - mysql_backup
 
   - name: Web server
     hosts: web_servers
@@ -59,6 +60,7 @@
       - influxdb
       - pinger
       - influxdb_exporter
+      - influxdb_backup
 
   - name: Rsyslog
     hosts: all

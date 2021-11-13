@@ -11,3 +11,23 @@
     name: backup
     generate_ssh_key: yes
     home: /home/backup
+
+- name: create a directory
+  ansible.builtin.file:
+    path: /home/backup/restore
+    owner: backup
+    group: backup
+    mode: '0755'
+    state: directory
+
+- name: duplicity package install
+  apt:
+    name: duplicity
+    state: latest
+
+- template:
+    src: known_hosts.j2
+    dest: /home/backup/.ssh/known_hosts
+    owner: backup
+    group: backup
+    mode: '0755'
