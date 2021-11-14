@@ -4,23 +4,28 @@ Use this command under the project directory:
 
     ansible-playbook infra.yaml
 
-Restore MySQL data from the backup:
-Use these commands on the managed host:
+To restore MySQL data from the backup: 
+
+Use these commands on the managed host with Mysql(VM2):
 
     sudo -u backup duplicity --no-encryption restore rsync://kribru@backup.kify.ki//home/kribru/ /home/backup/restore/
     sudo -u root mysql agama < /home/backup/restore/agama.sql
 
-add a few words here how the result of backup restore can be checked
+First line should say when the backup was done, second shouldn't show anything.
 
+Now if you check the Agama webpage, the data should be restored.
+
+---
 To Restore Influxdb data from the backup:
-Use these commands on the managed host:
+
+Use these commands on the managed host with InfluxDB(VM1):
 
     service telegraf stop
     influx -execute 'DROP DATABASE telegraf'
     influxd restore -portable -database telegraf /home/backup/influxdb
 
-To start the Telegraf service run: 
+To start the Telegraf service: 
 
-Use this command under the project directory:
+Run this command under the project directory:
 
     ansible-playbook infra.yaml

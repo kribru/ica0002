@@ -30,4 +30,4 @@
     dest: /home/backup/.ssh/known_hosts
     owner: backup
     group: backup
-    mode: '0755'
+    mode: '0770'

@@ -12,7 +12,7 @@ Backup coverage
 
 RPO (recovery point objective)
 
-    We will backup our services twice a day, so every 12 hours.
+    We will backup our services twice a day, so every 12 hours(10:22 and 22:22 UTC).
 
 Versioning and retention
 
