@@ -6,9 +6,9 @@
     mode: '0755'
     state: directory
 
-- name: MySQL user
+- name: MySQL user backup
   community.mysql.mysql_user:
-    name: backup
+    name: "{{ mysql_user_backup }}"
     password: "{{ mysql_backup_pass }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     priv: "agama.*:LOCK TABLES,SELECT"

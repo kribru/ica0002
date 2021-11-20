@@ -2,25 +2,30 @@
   apt: 
     name: mysql-server
     state: latest
-- name: Copy override.cnf with ansible to database server
-  ansible.builtin.copy:
-    src: roles/mysql/files/override.cnf
+
+- name: override.cnf to database server
+  template:
+    src: override.cnf
     dest: /etc/mysql/mysql.conf.d/override.cnf
   notify:
   - restart mysql
+
 - name: Start service mysql
   ansible.builtin.service:
     name: mysql
     state: started
     enabled: yes
+
 - name: Install PyMySQL
   apt:
     name: python3-pymysql
     state: latest
+
 - name: MySQL database
   community.mysql.mysql_db:
     name: "{{ mysql_database }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
 - name: MySQL user
   community.mysql.mysql_user:
     name: "{{ mysql_user }}"
@@ -31,8 +36,40 @@
 
 - name: Create user exporter
   community.mysql.mysql_user:
-    name: exporter
+    name: "{{ mysql_user_exporter }}"
     password: "{{mysql_exporter_pass}}"
     priv:
       '*.*': 'PROCESS,REPLICATION CLIENT,SELECT'
     login_unix_socket: /var/run/mysqld/mysqld.sock
+
+- name: Create MySQL user replication
+  community.mysql.mysql_user:
+    name: "{{ mysql_user_replication}}"
+    password: "{{ mysql_replication_pass }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    host: "%"
+    priv:
+      '*.*': 'REPLICATION SLAVE'
+
+- name: MySQL replica read only mode ON
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'ON'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: inventory_hostname != mysql_host
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
+
+
+- name: MySQL primary read only mode OFF
+  community.mysql.mysql_variables:
+    variable: read_only
+    value: 'OFF'
+    mode: persist
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  when: inventory_hostname == mysql_host
+  notify:
+    - Reset MySQL source
+    - Reset MySQL replica
