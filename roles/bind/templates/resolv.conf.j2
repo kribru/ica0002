@@ -1,2 +1,2 @@
-nameserver {{ hostvars[mysql_host]['ansible_default_ipv4']['address'] }}
+nameserver {{ hostvars[vm_with_bind9]['ansible_default_ipv4']['address'] }}
 search {{ domain_name }}

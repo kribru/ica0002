@@ -2,16 +2,12 @@
   apt: 
     name: uwsgi
     state: latest
+
 - name: install uWSGI plugin
   apt:
     name: uwsgi-plugin-python3
     state: latest
-#- name: copy uWSGI configuration file
- # ansible.builtin.copy:
-  #  src: roles/uwsgi/files/agama.ini
-   # dest: /etc/uwsgi/apps-enabled/agama.ini
- # notify:
-  #- restart uwsgi
+
 - name: Template a file to /etc/uwsgi/apps-enabled/agama.ini
   ansible.builtin.template:
     src: roles/uwsgi/templates/agama.ini
@@ -21,17 +17,19 @@
     mode: '755'
   notify:
   - restart uwsgi
+
 - name: start uWSGI service
   ansible.builtin.service:
     name: uwsgi
     enabled: yes
     state: started
+
 - name: stop systemd-resolved
   service:
     name: systemd-resolved
     state: stopped
     enabled: no
+
 - template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
-

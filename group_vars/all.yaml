@@ -1,5 +1,7 @@
 mysql_host: kribru-2
 
+vm_with_bind9: kribru-2
+
 mysql_database: agama
 
 mysql_user: agama
