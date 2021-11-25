@@ -22,6 +22,7 @@ forwarders:
 lan_ip:
   - 192.168.42.0/24;
   - 127.0.0.0/8;
+  - 172.17.0.0/16;
 
 domain_name: kify.ki
 
@@ -72,3 +73,5 @@ mysql_user_exporter: exporter
 mysql_user_backup: backup
 
 mysql_user_replication: replication
+
+grafana_port: 3001

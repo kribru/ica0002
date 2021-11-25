@@ -1,69 +1,49 @@
-- name: Add a grafana signing key
-  ansible.builtin.apt_key:
-    url: https://packages.grafana.com/gpg.key
+- name: Grafana directory
+  ansible.builtin.file:
+    name: /opt/grafana
+    state: directory
 
-- name: Add grafana repository into sources list
-  ansible.builtin.apt_repository:
-    repo: deb https://packages.grafana.com/oss/deb stable main
-    state: present
-    filename: grafana.list
-
-- name: Install grafana
-  apt:
-    name: grafana
-  notify:
-  - update grafana
-  - reset password
-
-- name: Start service grafana
-  ansible.builtin.service:
-    name: grafana-server
-    state: started
-    enabled: yes
-
-- template:
+- name: Grafana configuration
+  template:
     src: grafana.ini.j2
-    dest: /etc/grafana/grafana.ini
+    dest: /opt/grafana/grafana.ini
+
+- name: Creating grafana provisioning directories
+  ansible.builtin.file:
+    name: "/opt/grafana/provisioning/{{ item }}"
+    state: directory
+    recurse: yes
+  loop:
+    - dashboards
+    - datasources
+
+- name: Creating grafana dashboards
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "/opt/grafana/provisioning/dashboards/{{ item }}"
+  loop:
+    - dashboards.yaml
+    - dashboardsTELEGRAF.yaml
+    - main.json
+    - mysql.json
+    - syslog.json
 
 - template:
     src: datasources.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/datasources.yaml
-  notify: restart grafana
+    dest: /opt/grafana/provisioning/datasources/datasources.yaml
 
 - template:
     src: datasourcesINFLUX.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/datasourcesINFLUX.yaml
-  notify: restart grafana
+    dest: /opt/grafana/provisioning/datasources/datasourcesINFLUX.yaml
 
 - template:
     src: datasourcesTELEGRAF.yaml.j2
-    dest: /etc/grafana/provisioning/datasources/datasourcesTELEGRAF.yaml
-  notify: restart grafana
+    dest: /opt/grafana/provisioning/datasources/datasourcesTELEGRAF.yaml
 
-- name: Copy dashboards.yaml
-  ansible.builtin.copy:
-    src: dashboards.yaml
-    dest: /etc/grafana/provisioning/dashboards/
-
-- name: Copy dashboardsTELEGRAF.yaml
-  ansible.builtin.copy:
-    src: dashboardsTELEGRAF.yaml
-    dest: /etc/grafana/provisioning/dashboards/
-
-- name: Copy main.json
-  ansible.builtin.copy:
-    src: main.json
-    dest: /var/lib/grafana/dashboards/
-  notify: restart grafana
-
-- name: Copy mainSyslog.json
-  ansible.builtin.copy:
-    src: mainSyslog.json
-    dest: /var/lib/grafana/dashboards/
-  notify: restart grafana
-
-- name: Copy mysql.json
-  ansible.builtin.copy:
-    src: mysql.json
-    dest: /var/lib/grafana/dashboards/
-  notify: restart grafana
+- name: Grafana Docker container
+  community.docker.docker_container:
+    container_default_behavior: no_defaults
+    name: grafana
+    image: grafana/grafana
+    volumes: /opt/grafana:/etc/grafana
+    published_ports: "{{ grafana_port }}:3000"

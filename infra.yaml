@@ -37,8 +37,9 @@
     hosts: web_servers
     become: yes 
     roles:
+      - iptables
+      - docker
       - agama
-      - uwsgi
 
   - name: install nginx to servers
     hosts: all
@@ -51,6 +52,7 @@
     hosts: grafana
     become: yes
     roles:
+      - docker
       - grafana
 
   - name: Influxdb
