@@ -1,0 +1,21 @@
+- name: Download keepalived_stats_exporter
+  ansible.builtin.unarchive:
+    src: https://github.com/cafebazaar/keepalived-exporter/releases/download/v1.2.0/keepalived-exporter-1.2.0.linux-amd64.tar.gz
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 755
+  notify:
+    - restart prometheus-keepalived-stats-exporter
+
+- template:
+    src: keepalived-stats-exporter.service
+    dest: /etc/systemd/system/prometheus-keepalived-stats-exporter.service
+    mode: 755
+  notify:
+  - restart prometheus-keepalived-stats-exporter
+
+- name: Start service keepalived_exporter
+  ansible.builtin.service:
+    name: prometheus-keepalived-stats-exporter
+    state: started
+    enabled: yes

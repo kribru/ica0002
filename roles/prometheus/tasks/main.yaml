@@ -13,3 +13,9 @@
     dest: /etc/default/prometheus
   notify:
     - restart prometheus
+
+- name: Start service prometheus
+  service:
+    name: prometheus
+    state: started
+    enabled: yes

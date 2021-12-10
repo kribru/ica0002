@@ -75,3 +75,9 @@ mysql_user_backup: backup
 mysql_user_replication: replication
 
 grafana_port: 3001
+
+haproxy_port: 9101
+
+agama_ports:
+  - 8001
+  - 8002

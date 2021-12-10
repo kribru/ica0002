@@ -1,0 +1,4 @@
+- name: restart prometheus-keepalived-stats-exporter
+  ansible.builtin.service:
+    name: prometheus-keepalived-stats-exporter
+    state: restarted

@@ -1,0 +1,10 @@
+---
+- name: haproxy_exporter package install
+  apt:
+    name: prometheus-haproxy-exporter
+    state: latest
+
+- template:
+    src: prometheus-haproxy-exporter.j2
+    dest: /etc/default/prometheus-haproxy-exporter
+  notify: restart haproxy_exporter

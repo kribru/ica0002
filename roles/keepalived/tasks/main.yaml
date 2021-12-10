@@ -1,0 +1,21 @@
+- name: install keepalived
+  apt:
+    name: keepalived
+
+- template:
+    src: keepalived_script.j2
+    dest: /usr/local/bin/keepalived_script
+    mode: 755
+  notify: restart keepalived
+
+- name: /etc/keepalived/keepalived.conf
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: restart keepalived
+
+- name: Start service keepalived
+  ansible.builtin.service:
+    name: keepalived
+    state: started
+    enabled: yes

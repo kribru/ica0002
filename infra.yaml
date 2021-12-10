@@ -52,7 +52,6 @@
     hosts: grafana
     become: yes
     roles:
-      - docker
       - grafana
 
   - name: Influxdb
@@ -69,3 +68,12 @@
     become: yes
     roles:
       - rsyslog
+
+  - name: Keepalived, haproxy
+    hosts: all
+    become: yes
+    roles:
+      - keepalived
+      - haproxy
+      - haproxy_exporter
+      - keepalived_exporter

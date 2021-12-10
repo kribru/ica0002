@@ -1,0 +1,15 @@
+- name: install HAProxy
+  apt:
+    name: haproxy
+
+- name: /etc/haproxy/haproxy.cfg
+  template:
+      src: haproxy.cfg.j2
+      dest: /etc/haproxy/haproxy.cfg
+  notify: restart haproxy
+
+- name: Start service haproxy
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
