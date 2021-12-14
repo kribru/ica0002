@@ -25,6 +25,12 @@
       - bind
       - bind_exporter
 
+  - name: DNS records
+    hosts: dns_master
+    become: yes
+    roles:
+      - dns_records
+
   - name: Database server
     hosts: db_servers
     become: yes

@@ -246,7 +246,7 @@
             "uid": "PBFA97CFB590B2093"
           },
           "exemplar": true,
-          "expr": "topk(4, haproxy_server_up)",
+          "expr": "haproxy_server_up",
           "interval": "",
           "legendFormat": "",
           "refId": "A"

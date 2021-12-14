@@ -1,12 +1,19 @@
-kribru-1 ansible_host=193.40.156.86 ansible_port=15922 ansible_ssh_user=ubuntu
-kribru-2 ansible_host=193.40.156.86 ansible_port=7622 ansible_ssh_user=ubuntu
+kribru-1 ansible_host=193.40.156.86 ansible_port=1822 ansible_ssh_user=ubuntu
+kribru-2 ansible_host=193.40.156.86 ansible_port=16322 ansible_ssh_user=ubuntu
 
-[dns_servers]
+[dns_master]
 kribru-2
+
+[dns_slaves]
+kribru-1
+
+[dns_servers:children]
+dns_master
+dns_slaves
 
 [db_servers]
-kribru-2
 kribru-1
+kribru-2
 
 [web_servers]
 kribru-1
@@ -20,3 +27,7 @@ kribru-2
 
 [influxdb]
 kribru-1
+
+[haproxy]
+kribru-1
+kribru-2

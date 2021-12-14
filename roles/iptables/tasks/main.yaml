@@ -1,10 +1,14 @@
+- name: install iptables-persistent
+  apt:
+    name: iptables-persistent
+
 - name: fix ssl handshake bug in docker
   template:
     src: iptables.mangle
-    dest: /var/local/iptables.mangle
+    dest: /etc/iptables/rules.v4
 
 - name: restore iptables
   community.general.iptables_state:
-    path: /var/local/iptables.mangle
+    path: /etc/iptables/rules.v4
     state: restored
     table: mangle

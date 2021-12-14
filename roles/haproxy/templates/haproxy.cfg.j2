@@ -25,11 +25,11 @@ defaults
 	errorfile 504 /etc/haproxy/errors/504.http
 
 listen Agama
-    bind :88
+    bind :{{ haproxy_http_port }}
     stats enable
     stats uri /stats
 
-    {% for vm in groups["web_servers"] %}
+    {% for vm in groups["haproxy"] %}
     {% for agama_port in agama_ports %}
     server docker{{ loop.index }}{{ vm }} {{ vm }}.{{domain_name}}:{{ agama_port }} check
     {%  endfor %}

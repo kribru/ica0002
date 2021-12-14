@@ -1,31 +1,56 @@
 ---
 - name: bind package install
   apt:
-    name: bind9
+    name:
+      - bind9
+      - python3-dnspython
     state: latest
+
 - name: Start service bind9
   ansible.builtin.service:
     name: bind9
     state: started
     enabled: yes
-- template:
+
+- name: /etc/bind/named.conf.options
+  template:
     src: named.conf.options.j2
     dest: /etc/bind/named.conf.options
+  no_log: true
   notify:
     restart bind
-- template:
-    src: db.kify
-    dest: /var/cache/bind/db.kify
-- template:
+
+- name: var/cache/bind/db.{{ domain_name }}
+  when: inventory_hostname in groups["dns_master"]
+  template:
+    src: db.domain
+    dest: /var/cache/bind/db.{{ domain_name }}
+    force: no
+  notify:
+    rndc reload
+
+- name: var/cache/bind/db.reverse
+  when: inventory_hostname in groups["dns_master"]
+  template:
+    src: db.domain.reverse
+    dest: /var/cache/bind/db.reverse
+    force: no
+  notify:
+    rndc reload
+
+- name: /etc/bind/named.conf.local
+  template:
     src: named.conf.local.j2
     dest: /etc/bind/named.conf.local
   notify:
     restart bind
+
 - name: stop systemd-resolved
   service:
     name: systemd-resolved
     state: stopped
     enabled: no
+
 - template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf

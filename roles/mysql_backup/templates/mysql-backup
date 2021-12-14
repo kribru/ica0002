@@ -1,5 +1,5 @@
 {% if inventory_hostname != mysql_host -%}
 00 10,22 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
-22 10,22 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://kribru@backup.kify.ki//home/kribru/
-22 10,22 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://kribru@backup.kify.ki//home/kribru/
+22 10,22 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://kribru@backup.{{ domain_name }}//home/kribru/
+22 10,22 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://kribru@backup.{{ domain_name }}//home/kribru/
 {% endif -%}
