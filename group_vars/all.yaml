@@ -26,6 +26,8 @@ lan_ip:
 
 domain_name: kify.ki
 
+database_name: kifydb
+
 vms:
   - kribru-1
   - kribru-2
@@ -122,7 +124,6 @@ dns_a_records:
   backup: 192.168.42.156
   cloudflare: 1.1.1.1
   google: 8.8.8.8
-  google2: 8.8.4.4
 
 dns_cname_records:
   grafana: "{{ groups['grafana'][0] }}"
@@ -136,3 +137,11 @@ dns_cname_records:
   prometheus: "{{ groups['prometheus'][0] }}"
   web1: "{{ groups['web_servers'][0] }}"
   web2: "{{ groups['web_servers'][1] }}"
+
+docker_acc_pass: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          39353835393630386363386433633533653738633662393236383537633733336134613961333962
+          6465313439373562616162613761383837306336316565330a326132363937323933303634313337
+          30396261353064323331376435653330363533313265363265306365623237376336383264336237
+          3938393835623233630a363332366534613961623663346432663235643461363666666633656261
+          3030

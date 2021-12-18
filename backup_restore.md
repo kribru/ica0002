@@ -6,7 +6,7 @@ Use this command under the project directory:
 
 To restore MySQL data from the backup: 
 
-Use these commands on the managed host with Mysql(VM2):
+Use these commands on the managed host with Mysql:
 
     sudo -u backup duplicity --no-encryption restore rsync://kribru@backup.kify.ki//home/kribru/ /home/backup/restore/
     sudo -u root mysql agama < /home/backup/restore/agama.sql
@@ -18,7 +18,7 @@ Now if you check the Agama webpage, the data should be restored.
 ---
 To Restore Influxdb data from the backup:
 
-Use these commands on the managed host with InfluxDB(VM1):
+Use these commands on the managed host with InfluxDB:
 
     service telegraf stop
     influx -execute 'DROP DATABASE telegraf'

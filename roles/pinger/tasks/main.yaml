@@ -22,9 +22,7 @@
     dest: /etc/systemd/system/
     owner: pinger
     group: pinger
-
-- name: reload systemctl deamon
-  shell: systemctl daemon-reload
+  notify: reload systemctl deamon
 
 - template:
     src: pinger.conf

@@ -48,28 +48,15 @@
     password: "{{ mysql_replication_pass }}"
     login_unix_socket: /var/run/mysqld/mysqld.sock
     host: "%"
-    priv:
-      '*.*': 'REPLICATION SLAVE'
+    priv: "*.*:REPLICATION SLAVE"
 
 - name: MySQL replica read only mode ON
   community.mysql.mysql_variables:
     variable: read_only
-    value: 'ON'
+    value: '{{ "OFF" if inventory_hostname == dns_cname_records["mysql1"] else "ON" }}'
     mode: persist
     login_unix_socket: /var/run/mysqld/mysqld.sock
-  when: inventory_hostname != mysql_host
   notify:
     - Reset MySQL source
     - Reset MySQL replica
-
-
-- name: MySQL primary read only mode OFF
-  community.mysql.mysql_variables:
-    variable: read_only
-    value: 'OFF'
-    mode: persist
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-  when: inventory_hostname == mysql_host
-  notify:
-    - Reset MySQL source
-    - Reset MySQL replica
+    - restart mysql

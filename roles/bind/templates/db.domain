@@ -1,5 +1,5 @@
 $TTL	604800
-{{domain_name}}.	IN	SOA	kribru-1.{{domain_name}}. kris-sten.{{domain_name}}. (
+{{domain_name}}.	IN	SOA	{{ dns_cname_records["ns1"] }}.{{domain_name}}. kris-sten.{{domain_name}}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -12,4 +12,4 @@ $TTL	604800
 {% for vm in groups['all'] %}
 {{ vm }} IN A {{hostvars[vm]['ansible_default_ipv4']['address']}}
 {% endfor %}
-backup IN A {{backup_server}}
+

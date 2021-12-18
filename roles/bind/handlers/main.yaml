@@ -5,6 +5,4 @@
     state: restarted
 
 - name: rndc reload
-  ansible.builtin.command:
-    cmd: rndc reload
-  failed_when: no
+  shell: sudo rndc reload

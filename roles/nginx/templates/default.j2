@@ -47,13 +47,13 @@ server {
         }
         {% endif %}
 
-        {% if inventory_hostname in groups['all'] %}
+        {% if inventory_hostname in groups['haproxy'] %}
                 location /haproxy-metrics {
                    proxy_pass http://localhost:{{ haproxy_port }}/metrics;
         }
         {% endif %}
 
-        {% if inventory_hostname in groups['all'] %}
+        {% if inventory_hostname in groups['haproxy'] %}
                 location /keepalived-metrics {
                    proxy_pass http://localhost:{{ prometheus_exporter_keepalived_port }}/metrics;
         }

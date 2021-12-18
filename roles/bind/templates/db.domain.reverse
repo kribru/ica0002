@@ -1,5 +1,5 @@
 $TTL	604800
-42.168.192.in-addr.arpa.	IN	SOA	kribru-1.{{domain_name}}. kris-sten.{{domain_name}}. (
+42.168.192.in-addr.arpa.	IN	SOA	{{ dns_cname_records["ns1"] }}.{{domain_name}}. kris-sten.{{domain_name}}. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
@@ -12,4 +12,3 @@ $TTL	604800
 {% for vm in groups['all'] %}
 {{(hostvars[vm]['ansible_default_ipv4']['address']|split('.'))[3]}} IN PTR {{vm}}.{{domain_name}}.
 {% endfor %}
-backup IN A {{backup_server}}

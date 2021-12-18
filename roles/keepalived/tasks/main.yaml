@@ -2,6 +2,10 @@
   apt:
     name: keepalived
 
+- name: keepalived_script user
+  user:
+    name: keepalived_script
+
 - template:
     src: keepalived_script.j2
     dest: /usr/local/bin/keepalived_script

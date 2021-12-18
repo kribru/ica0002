@@ -21,8 +21,8 @@
     name: agama
     image: agama
     env:
-      AGAMA_DATABASE_URI: "mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{cname['mysql1']}}/{{mysql_database}}"
-    published_ports: "8001:8000"
+      AGAMA_DATABASE_URI: "mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{dns_cname_records['mysql1']}}/{{mysql_database}}"
+    published_ports: "{{agama_ports[0]}}:8000"
 
 - name: Agama2 Docker container
   community.docker.docker_container:
@@ -30,6 +30,6 @@
     name: agama2
     image: agama
     env:
-      AGAMA_DATABASE_URI: "mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{cname['mysql1']}}/{{mysql_database}}"
+      AGAMA_DATABASE_URI: "mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{dns_cname_records['mysql1']}}/{{mysql_database}}"
       #AGAMA_DATABASE_URI: "mysql+pymysql://{{mysql_user}}:{{mysql_password}}@{{mysql_host}}/{{mysql_database}}"
-    published_ports: "8002:8000"
+    published_ports: "{{agama_ports[1]}}:8000"

@@ -4,6 +4,11 @@
       - docker.io
       - python3-docker
 
+- name: Log into DockerHub
+  docker_login:
+    username: hapukoor
+    password: "{{ docker_acc_pass }}"
+
 - name: Docker service
   service:
     name: docker

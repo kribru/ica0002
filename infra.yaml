@@ -12,12 +12,6 @@
     roles:
       - node_exporter
 
-  - name: Prometheus
-    hosts: prometheus
-    become: yes
-    roles:
-      - prometheus
-
   - name: DNS server
     hosts: dns_servers
     become: yes
@@ -30,6 +24,19 @@
     become: yes
     roles:
       - dns_records
+
+  - name: install nginx to servers
+    hosts: all
+    become: yes
+    roles:
+      - nginx
+      - nginx_exporter
+
+  - name: Prometheus
+    hosts: prometheus
+    become: yes
+    roles:
+      - prometheus
 
   - name: Database server
     hosts: db_servers
@@ -47,17 +54,11 @@
       - docker
       - agama
 
-  - name: install nginx to servers
-    hosts: all
-    become: yes
-    roles:
-      - nginx
-      - nginx_exporter
-
   - name: Grafana
     hosts: grafana
     become: yes
     roles:
+      - docker
       - grafana
 
   - name: Influxdb
@@ -70,13 +71,13 @@
       - influxdb_backup
 
   - name: Rsyslog
-    hosts: all
+    hosts: influxdb
     become: yes
     roles:
       - rsyslog
 
   - name: Keepalived, haproxy
-    hosts: all
+    hosts: haproxy
     become: yes
     roles:
       - keepalived

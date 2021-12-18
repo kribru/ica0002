@@ -2,7 +2,7 @@ zone "{{ domain_name }}" {
 {% if inventory_hostname in groups["dns_master"] %}
     type master;
     allow-update {key nsupdate.key;};
-    allow-transfer {127.0.0.1; key transfer.key;};
+    allow-transfer {localhost; key transfer.key;};
 {% else %}
     type slave;
     masters { {{ hostvars[groups["dns_master"][0]]['ansible_default_ipv4']['address'] }}; };
@@ -19,7 +19,7 @@ zone "42.168.192.in-addr.arpa" {
 {% if inventory_hostname in groups["dns_master"] %}
     type master;
     allow-update {key nsupdate.key;};
-    allow-transfer {127.0.0.1; key transfer.key;};
+    allow-transfer {localhost; key transfer.key;};
 {% else %}
     type slave;
     masters { {{ hostvars[groups["dns_master"][0]]['ansible_default_ipv4']['address'] }}; };

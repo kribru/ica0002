@@ -7,17 +7,17 @@ vrrp_script check_haproxy {
 vrrp_instance VIP  {
     interface ens3
     virtual_router_id 1
-    {% if inventory_hostname == "kribru-1" %}
+    {% if inventory_hostname == dns_cname_records["lb1"] %}
     priority 100
     {% else %}
     priority 99
     {% endif %}
     advert_int 1
     virtual_ipaddress {
-        192.168.100.{{ (hostvars["kribru-1"]['ansible_default_ipv4']['address'] | split("."))[3] }}/24
+        192.168.100.{{ (hostvars[dns_cname_records["lb1"]]['ansible_default_ipv4']['address'] | split("."))[3] }}/24
     }
     unicast_peer {
-        {% for vm in groups["web_servers"] %}
+        {% for vm in groups["haproxy"] %}
         {% if inventory_hostname != vm %}
         {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
         {% endif %}
@@ -26,4 +26,9 @@ vrrp_instance VIP  {
     track_script {
         check_haproxy
     }
+}
+
+global_defs {
+    enable_script_security
+    script_user keepalived_script
 }
