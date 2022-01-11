@@ -8,8 +8,15 @@
   notify:
     - restart prometheus-influxdb-stats-exporter
 
-- template:
+- name: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
+  template:
     src: influxdb-stats-exporter.service
     dest: /etc/systemd/system/prometheus-influxdb-stats-exporter.service
   notify:
   - restart prometheus-influxdb-stats-exporter
+
+- name: start influxdb_exporter
+  service:
+    name: prometheus-influxdb-stats-exporter
+    state: started
+    enabled: yes

@@ -19,6 +19,7 @@
     owner: backup
     group: backup
     mode: '0440'
+  no_log: true
 
 - template:
     src: mysql-backup

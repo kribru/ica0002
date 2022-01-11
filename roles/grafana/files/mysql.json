@@ -20,14 +20,12 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -88,13 +86,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_up",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -102,7 +104,6 @@
       "type": "stat"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -172,10 +173,14 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "rate(mysql_global_status_commands_total[1m])\n",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -183,7 +188,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -228,13 +232,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_global_variables_server_id",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -242,7 +250,6 @@
       "type": "stat"
     },
     {
-      "datasource": null,
       "description": "Historical data for MySQL server read only status",
       "fieldConfig": {
         "defaults": {
@@ -304,13 +311,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_global_variables_read_only",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -318,7 +329,6 @@
       "type": "stat"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -379,13 +389,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_slave_status_slave_io_running",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -393,7 +407,6 @@
       "type": "stat"
     },
     {
-      "datasource": null,
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -454,13 +467,17 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "8.2.5",
+      "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "mysql_slave_status_slave_sql_running",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{ instance }}",
           "refId": "A"
         }
       ],
@@ -468,7 +485,7 @@
       "type": "stat"
     }
   ],
-  "schemaVersion": 32,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -482,5 +499,6 @@
   "timezone": "",
   "title": "MySQL",
   "uid": "MR-gVe57z",
-  "version": 4
+  "version": 2,
+  "weekStart": ""
 }
