@@ -8,6 +8,7 @@
   docker_login:
     username: hapukoor
     password: "{{ docker_acc_pass }}"
+  no_log: True
 
 - name: Docker service
   service:

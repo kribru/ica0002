@@ -50,7 +50,7 @@ grafana_pass: !vault |
 
 backup_server: 192.168.42.132
 
-backup_server_ssh_key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBSne71MCp6CQCHURWe3CLud6vPDkLfL83Oab/giAI7O
+backup_server_ssh_key: ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBN0rTGlGmEzTODaw6+WWszpBY5fXmSGksHhI3CB/y/0BB4N0i69kf0dj14nDh23XWNfMWmn0rTOAks2tyTAWw5I=
 
 mysql_backup_pass: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -121,7 +121,7 @@ dns_update_key: !vault |
           3238393163363463396666643064373030383762663831326238
 
 dns_a_records:
-  backup: 192.168.42.156
+  backup: 192.168.42.132
   cloudflare: 1.1.1.1
   google: 8.8.8.8
 
