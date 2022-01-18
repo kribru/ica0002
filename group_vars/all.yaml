@@ -101,6 +101,9 @@ prometheus_exporter_keepalived_port: 9165
 agama_ports:
   - 8001
   - 8002
+  - 8003
+  - 8004
+  - 8005
 
 dns_transfer_key: !vault |
           $ANSIBLE_VAULT;1.1;AES256

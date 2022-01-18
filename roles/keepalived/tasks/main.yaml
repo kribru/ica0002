@@ -9,7 +9,9 @@
 - template:
     src: keepalived_script.j2
     dest: /usr/local/bin/keepalived_script
-    mode: 755
+    mode: 0770
+    owner: keepalived_script
+    group: keepalived_script
   notify: restart keepalived
 
 - name: /etc/keepalived/keepalived.conf

@@ -17,6 +17,11 @@
     state: started
     enabled: yes
 
+- service:
+    name: telegraf
+    state: started
+    enabled: yes
+
 - template:
     src: telegraf.conf.j2
     dest: /etc/telegraf/telegraf.conf

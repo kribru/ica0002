@@ -1,6 +1,6 @@
-kribru-1 ansible_host=193.40.156.67 ansible_port=18122 ansible_ssh_user=ubuntu
-kribru-2 ansible_host=193.40.156.67 ansible_port=8422 ansible_ssh_user=ubuntu
-kribru-3 ansible_host=193.40.156.67 ansible_port=12522 ansible_ssh_user=ubuntu
+kribru-1 ansible_host=193.40.156.67 ansible_port=19622 ansible_ssh_user=ubuntu
+kribru-2 ansible_host=193.40.156.67 ansible_port=16322 ansible_ssh_user=ubuntu
+kribru-3 ansible_host=193.40.156.67 ansible_port=2822 ansible_ssh_user=ubuntu
 
 [dns_master]
 kribru-3
